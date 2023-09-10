@@ -28,6 +28,7 @@ use yii\db\ActiveRecord;
  * @property Task $task
  * @property Sms $sms
  * @property Call $call
+ * @property Fax $fax
  */
 class History extends ActiveRecord
 {
@@ -48,6 +49,14 @@ class History extends ActiveRecord
 
     const EVENT_CUSTOMER_CHANGE_TYPE = 'customer_change_type';
     const EVENT_CUSTOMER_CHANGE_QUALITY = 'customer_change_quality';
+
+    const OBJECT_TASK = 'task';
+    const OBJECT_SMS = 'sms';
+    const OBJECT_FAX = 'fax';
+    const OBJECT_CUSTOMER = 'customer';
+    const OBJECT_LEAD = 'lead';
+    const OBJECT_DEAL = 'deal';
+    const OBJECT_CALL = 'call';
 
     /**
      * @inheritdoc

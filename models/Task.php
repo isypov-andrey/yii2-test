@@ -17,7 +17,6 @@ use yii\db\ActiveRecord;
  * @property string $text
  * @property string $due_date
  * @property integer $priority
- * @property string $ins_ts
  *
  * @property string $stateText
  * @property string $state

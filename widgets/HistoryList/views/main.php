@@ -8,6 +8,7 @@ use yii\widgets\Pjax;
 
 /* @var $this yii\web\View */
 /* @var $dataProvider ActiveDataProvider */
+/* @var $objectFactoryCreator HistoryObjectFactoryCreator */
 /* @var $model HistorySearch */
 /* @var $linkExport string */
 
@@ -35,6 +36,9 @@ use yii\widgets\Pjax;
 <?php echo ListView::widget([
     'dataProvider' => $dataProvider,
     'itemView' => '_item',
+    'viewParams' => [
+        'objectFactoryCreator' => $objectFactoryCreator
+    ],
     'options' => [
         'tag' => 'ul',
         'class' => 'list-group'

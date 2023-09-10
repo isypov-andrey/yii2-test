@@ -5,17 +5,19 @@
  * @var $model \app\models\History
  * @var $dataProvider yii\data\ActiveDataProvider
  * @var $exportType string
+ * @var $objectFactoryCreator HistoryObjectFactoryCreator
  */
 
+use app\models\EventFactory\HistoryObjectFactoryCreator;
 use app\models\History;
 use app\widgets\Export\Export;
-use app\widgets\HistoryList\helpers\HistoryListHelper;
 
 $filename = 'history';
 $filename .= '-' . time();
 
 ini_set('max_execution_time', 0);
 ini_set('memory_limit', '2048M');
+
 ?>
 
 <?= Export::widget([
@@ -46,8 +48,10 @@ ini_set('memory_limit', '2048M');
         ],
         [
             'label' => Yii::t('app', 'Message'),
-            'value' => function (History $model) {
-                return strip_tags(HistoryListHelper::getBodyByModel($model));
+            'value' => function (History $model) use ($objectFactoryCreator) {
+                $factory = $objectFactoryCreator->getFactory($model->object);
+                $renderDataProvider = $factory->getRendererDataProvider($model);
+                return strip_tags($renderDataProvider->getBodyText());
             }
         ]
     ],

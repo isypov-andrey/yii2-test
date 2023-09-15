@@ -1,5 +1,6 @@
 <?php
 
+use app\models\DTO\ChangeDTO;
 use app\models\User;
 use yii\helpers\Html;
 
@@ -9,16 +10,22 @@ use yii\helpers\Html;
 /* @var $footerDatetime string */
 /* @var $bodyDatetime string */
 /* @var $iconClass string */
+/* @var $changes ChangeDTO[] */
 ?>
 <?php echo Html::tag('i', '', ['class' => "icon icon-circle icon-main white $iconClass"]); ?>
 
     <div class="bg-success ">
-        <?php echo $body ?>
-
-        <?php if (isset($bodyDatetime)): ?>
-            <span>
-       <?= \app\widgets\DateTime\DateTime::widget(['dateTime' => $bodyDatetime]) ?>
-    </span>
+        <p>
+            <?php echo $body ?>
+        </p>
+        <?php if (!empty($changes)): ?>
+            <?php foreach ($changes as $change): ?>
+                <?php echo
+                    "<span class='badge badge-pill badge-warning'>" . ($change->from ?? "<i>not set</i>") . "</span>" .
+                    " &#8594; " .
+                    "<span class='badge badge-pill badge-success'>" . ($change->to ?? "<i>not set</i>") . "</span>";
+                ?>
+            <?php endforeach; ?>
         <?php endif; ?>
     </div>
 

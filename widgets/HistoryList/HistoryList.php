@@ -2,6 +2,7 @@
 
 namespace app\widgets\HistoryList;
 
+use app\models\EventFactory\HistoryObjectFactoryCreator;
 use app\models\search\HistorySearch;
 use app\widgets\Export\Export;
 use yii\base\Widget;
@@ -12,6 +13,19 @@ use Yii;
 class HistoryList extends Widget
 {
     /**
+     * @var HistoryObjectFactoryCreator
+     */
+    private $objectFactoryCreator;
+
+    public function __construct(
+        HistoryObjectFactoryCreator $objectFactoryCreator,
+        $config = []
+    ) {
+        parent::__construct($config);
+        $this->objectFactoryCreator = $objectFactoryCreator;
+    }
+
+    /**
      * @return string
      */
     public function run()
@@ -21,7 +35,8 @@ class HistoryList extends Widget
         return $this->render('main', [
             'model' => $model,
             'linkExport' => $this->getLinkExport(),
-            'dataProvider' => $model->search(Yii::$app->request->queryParams)
+            'dataProvider' => $model->search(Yii::$app->request->queryParams),
+            'objectFactoryCreator' => $this->objectFactoryCreator
         ]);
     }
 
